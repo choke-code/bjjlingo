@@ -716,9 +716,11 @@ function showLoginScreen() {
     if (isLoggedIn() && state.profile.belt) {
         loginScreen.style.display = "none";
         app.style.display = "block";
+        if (!document.querySelector(".page.active")) setPage("home");
     } else if (isLoggedIn()) {
         loginScreen.style.display = "none";
         app.style.display = "block";
+        if (!document.querySelector(".page.active")) setPage("home");
         document.getElementById("onboardModal").classList.add("open");
     } else {
         loginScreen.style.display = "flex";
