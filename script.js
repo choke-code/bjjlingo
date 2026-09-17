@@ -807,6 +807,13 @@ function setPage(pageId) {
     document.querySelectorAll(".nav-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.page === pageId); });
     render();
     window.scrollTo({ top: 0 });
+    if (pageId === "search") {
+        const si = document.getElementById("searchInput");
+        if (si) {
+            renderSearch(si.value.trim());
+            setTimeout(function() { si.focus(); }, 60);
+        }
+    }
 }
 
 function avatarInit(name) {
