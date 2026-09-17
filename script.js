@@ -5,7 +5,7 @@ const LEGACY_KEY = "bjjlingo_v1";
 const GOOGLE_CLIENT_ID = "470545192889-b6gq29mat02rhgqfi29e9doa74gi4fte.apps.googleusercontent.com";
 
 const DEFAULT_STATE = {
-    profile: { name: "Aluno", professor: "Professor", days: [1, 3, 6], isJuvenil: false, belt: null, soloTraining: false, disclaimerSeen: false },
+    profile: { name: "Aluno", professor: "Professor", days: [1, 3, 6], isJuvenil: false, belt: null, soloTraining: false, showPlan: true, disclaimerSeen: false },
     hearts: 5,
     maxHearts: 5,
     xp: 0,
@@ -731,11 +731,17 @@ function showLoginScreen() {
 /* ---------- ESTADO ---------- */
 
 function loadState() {
+    let st;
     try {
         const raw = localStorage.getItem(dataKey());
-        if (raw) return Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(raw));
-    } catch (e) {}
-    return JSON.parse(JSON.stringify(DEFAULT_STATE));
+        if (raw) st = Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(raw));
+        else st = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    } catch (e) {
+        st = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    }
+    if (!st.profile) st.profile = JSON.parse(JSON.stringify(DEFAULT_STATE.profile));
+    if (st.profile.showPlan === undefined) st.profile.showPlan = true;
+    return st;
 }
 
 function saveState() {
@@ -1190,6 +1196,8 @@ function computePlanStreak() {
 function renderPlan() {
     const card = document.getElementById("planCard");
     if (!card) return;
+    if (state.profile.showPlan === false) { card.style.display = "none"; return; }
+    card.style.display = "";
     const { plan } = getPlan();
     const drills = plan.ids.map(drillById).filter(Boolean);
     const total = drills.length;
@@ -1279,6 +1287,8 @@ function renderSettings() {
     juv.forEach(function(b) { b.classList.toggle("active", parseInt(b.dataset.val, 10) === (state.profile.isJuvenil ? 1 : 0)); });
     const mode = document.querySelectorAll("#setMode .seg-btn");
     mode.forEach(function(b) { b.classList.toggle("active", b.dataset.val === (state.profile.soloTraining ? "solo" : "partner")); });
+    const plan = document.querySelectorAll("#setPlan .seg-btn");
+    plan.forEach(function(b) { b.classList.toggle("active", (b.dataset.val === "show") === (state.profile.showPlan !== false)); });
 
     beltChips(belts(), state.profile.belt ? state.profile.belt.label : "", "setBelt");
 
@@ -1789,6 +1799,15 @@ document.addEventListener("DOMContentLoaded", function() {
         saveState();
         render();
         showToast(state.profile.soloTraining ? "Modo Treino Solo ativado" : "Modo Treino com Parceiro ativado");
+    });
+
+    document.getElementById("setPlan").addEventListener("click", function(e) {
+        const btn = e.target.closest(".seg-btn");
+        if (!btn) return;
+        state.profile.showPlan = btn.dataset.val === "show";
+        saveState();
+        render();
+        showToast(state.profile.showPlan ? "Plano de hoje visivel no Inicio" : "Plano de hoje oculto do Inicio");
     });
 
     document.getElementById("setTheme").addEventListener("click", function(e) {

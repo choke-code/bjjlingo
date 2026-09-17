@@ -37,7 +37,7 @@
       "inLanguage": "pt-BR"
     }
     </script>
-    <link rel="stylesheet" href="styles.css?v=21">
+    <link rel="stylesheet" href="styles.css?v=22">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 </head>
@@ -143,34 +143,6 @@
             <button class="btn btn-primary btn-block" id="btnRerollPlan">Gerar outro plano</button>
         </section>
 
-        <section class="card continue-card" id="continueCard">
-            <div class="section-kicker">CONTINUE SEU TREINO</div>
-            <h2 class="card-title">De onde parou</h2>
-            <div class="continue-row">
-                <span class="lesson-play" id="continueIcon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                </span>
-                <div class="continue-info" id="continueInfo">
-                    <strong id="nextLessonTitle">Posição atual</strong>
-                    <span id="nextLessonText">Carregando...</span>
-                </div>
-                <span class="lesson-check" id="continueCheck" style="display:none">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                </span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="continueProgress" style="width:0%"></div></div>
-            <button class="btn btn-primary btn-block" id="btnContinue">Comecar licao</button>
-        </section>
-
-        <section class="card progress-card">
-            <div class="card-head-row">
-                <div class="section-kicker">SEU PROGRESSO</div>
-                <span class="muted-sm" id="homeProgressText">0%</span>
-            </div>
-            <p class="card-title" id="homeProgressLabel">Curso de posicoes</p>
-            <div class="progress-bar lg"><div class="progress-fill" id="homeProgressFill" style="width:0%"></div></div>
-        </section>
-
         <section class="stats-grid">
             <div class="stat-tile">
                 <span class="stat-ic red-soft"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
@@ -209,6 +181,34 @@
             <h2 class="page-title" id="learnTitle">Posicoes</h2>
             <p class="page-sub" id="learnSub">Complete as lições e evolua</p>
         </div>
+        <section class="card continue-card" id="continueCard">
+            <div class="section-kicker">CONTINUE SEU TREINO</div>
+            <h2 class="card-title">De onde parou</h2>
+            <div class="continue-row">
+                <span class="lesson-play" id="continueIcon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <div class="continue-info" id="continueInfo">
+                    <strong id="nextLessonTitle">Posição atual</strong>
+                    <span id="nextLessonText">Carregando...</span>
+                </div>
+                <span class="lesson-check" id="continueCheck" style="display:none">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="continueProgress" style="width:0%"></div></div>
+            <button class="btn btn-primary btn-block" id="btnContinue">Comecar licao</button>
+        </section>
+
+        <section class="card progress-card">
+            <div class="card-head-row">
+                <div class="section-kicker">SEU PROGRESSO</div>
+                <span class="muted-sm" id="homeProgressText">0%</span>
+            </div>
+            <p class="card-title" id="homeProgressLabel">Curso de posicoes</p>
+            <div class="progress-bar lg"><div class="progress-fill" id="homeProgressFill" style="width:0%"></div></div>
+        </section>
+
         <div id="unitsContainer"></div>
     </main>
 
@@ -286,6 +286,14 @@
             <div class="set-opt">
                 <div class="set-opt-text"><strong>Dias de aula</strong><span>Quando você treina na semana</span></div>
                 <div class="days-selector" id="daysSelector"></div>
+            </div>
+
+            <div class="set-opt">
+                <div class="set-opt-text"><strong>Plano de hoje</strong><span>Mostrar o plano diário no Início</span></div>
+                <div class="segmented segmented-row" id="setPlan">
+                    <button class="seg-btn" data-val="show">Mostrar</button>
+                    <button class="seg-btn" data-val="hide">Ocultar</button>
+                </div>
             </div>
 
             <div class="set-opt">
@@ -474,6 +482,6 @@
 
     <div id="toast"></div>
 </div>
-<script src="script.js?v=21"></script>
+<script src="script.js?v=22"></script>
 </body>
 </html>
