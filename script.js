@@ -532,7 +532,7 @@ function openLookup(entry) {
     document.getElementById("theoryIcon").innerHTML = entry.icon;
     const imgEl = document.getElementById("theoryImg");
     const ph = photoFor(entry);
-    if (ph) { imgEl.innerHTML = "<img class='tb-photo' src='" + ph + "' alt='" + entry.name + "' loading='lazy'><p class='tb-credit'>Foto: Wikipedia / Wikimedia Commons (CC BY-SA)</p>"; imgEl.style.display = "flex"; }
+    if (ph) { imgEl.innerHTML = "<img class='tb-photo' src='" + esc(ph) + "' alt='" + esc(entry.name) + "' loading='lazy'><p class='tb-credit'>Foto: Wikipedia / Wikimedia Commons (CC BY-SA)</p>"; imgEl.style.display = "flex"; }
     else if (entry.img) { imgEl.innerHTML = entry.img; imgEl.style.display = "flex"; }
     else { imgEl.innerHTML = ""; imgEl.style.display = "none"; }
     const textEl = document.getElementById("theoryText");
@@ -878,7 +878,7 @@ function renderHome() {
     const beltRow = document.getElementById("beltRow");
     if (state.profile.belt) {
         const b = state.profile.belt;
-        beltRow.innerHTML = "<span class='belt-badge' style='background:" + b.color + ";color:" + b.text + "'>" + b.label + "</span>" + (state.profile.isJuvenil ? "<span class='juvenil-tag'>Juvenil</span>" : "");
+        beltRow.innerHTML = "<span class='belt-badge' style='background:" + esc(b.color) + ";color:" + esc(b.text) + "'>" + esc(b.label) + "</span>" + (state.profile.isJuvenil ? "<span class='juvenil-tag'>Juvenil</span>" : "");
     } else {
         beltRow.innerHTML = "<span class='no-belt'>Sem faixa definida - ajuste nos Ajustes.</span>";
     }
@@ -1390,13 +1390,13 @@ function openLessonContent(unit, lesson) {
     const note = document.getElementById("videoNote");
     const done = !!state.lessonsDone[lesson.id];
 
-    videoWrapper.innerHTML = '<div class="video-placeholder" id="videoPlaceholder"><div class="play-btn">&#9654;&#65039;</div><div class="vid-title">Assistir: ' + lesson.title + '</div><div class="vid-sub">Vídeo do YouTube</div></div>';
+    videoWrapper.innerHTML = '<div class="video-placeholder" id="videoPlaceholder"><div class="play-btn">&#9654;&#65039;</div><div class="vid-title">Assistir: ' + esc(lesson.title) + '</div><div class="vid-sub">Vídeo do YouTube</div></div>';
     document.getElementById("videoPlaceholder").addEventListener("click", function() {
-        videoWrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/' + lesson.videoId + '?autoplay=1" title="' + lesson.title + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+        videoWrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/' + esc(lesson.videoId) + '?autoplay=1" title="' + esc(lesson.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
     });
 
     note.style.display = done ? "none" : "block";
-    note.innerHTML = 'Assista ao vídeo abaixo e depois marque como concluída. <span style="display:block;margin-top:6px"><a class="video-action-btn youtube" href="https://www.youtube.com/watch?v=' + lesson.videoId + '" target="_blank" rel="noopener">&#9654;&#65039; Abrir no YouTube</a></span>';
+    note.innerHTML = 'Assista ao vídeo abaixo e depois marque como concluída. <span style="display:block;margin-top:6px"><a class="video-action-btn youtube" href="https://www.youtube.com/watch?v=' + esc(lesson.videoId) + '" target="_blank" rel="noopener">&#9654;&#65039; Abrir no YouTube</a></span>';
 
     const btn = document.getElementById("btnCompleteLesson");
     btn.textContent = done ? "Já concluída - Fechar" : "Concluir lição (+10 XP)";
